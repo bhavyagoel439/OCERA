@@ -2,20 +2,16 @@
 #include <thread>
 #include <mutex>
 #include <vector>
-
 int shared_counter = 0;
 std::mutex counter_mutex;
-
 void increment_many_times(int times) {
     for (int i = 0; i < times; i++) {
         std::lock_guard<std::mutex> lock(counter_mutex);
         shared_counter++;
     }
 }
-
 int main() {
     std::cout << "OCERA environment check starting...\n";
-
     const int num_threads = 4;
     const int increments_per_thread = 50000;
     std::vector<std::thread> threads;
